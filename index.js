@@ -40,11 +40,9 @@ function addUrl(u) {
   } catch {
     return 
   }
-
-  urls.set(++id, url)
-  console.log(urls)
   if(!(url.protocol==="http:"||url.protocol==="https:")){
     return 
   }
+  urls.set(++id, url)
   return {shortUrl: id, originalUrl: url}
 }
