@@ -4,7 +4,8 @@ const bodyParser = require("body-parser")
 const cors = require('cors');
 const postgres = require('postgres');
 const app = express();
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 // Basic Configuration
@@ -37,10 +38,12 @@ app.get('/', function(req, res) {
 app.post("/api/shorturl", async (req, res) => {
   try{
   const url = req.body.url
+  console.log(req.body)
   if(!isUrl(url)) return  res.json({error: "invalid url"})
   let shortcut = await addWebsiteURL(url)
   res.json(shortcut[0])
-  }catch {
+  }catch(e) {
+    console.log(e)
     res.json({error: "invalid url"})
   }
 })
